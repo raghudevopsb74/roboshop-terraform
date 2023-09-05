@@ -101,13 +101,13 @@ module "alb" {
 
 module "app" {
   #depends_on = [module.docdb, module.alb, module.elasticache, module.rabbitmq, module.rds]
-  source     = "git::https://github.com/raghudevopsb74/tf-module-app.git"
+  source = "git::https://github.com/raghudevopsb74/tf-module-app.git"
 
-  tags             = merge(var.tags, each.value["tags"])
-  env              = var.env
-  zone_id          = var.zone_id
-  ssh_ingress_cidr = var.ssh_ingress_cidr
-  default_vpc_id   = var.default_vpc_id
+  tags                    = merge(var.tags, each.value["tags"])
+  env                     = var.env
+  zone_id                 = var.zone_id
+  ssh_ingress_cidr        = var.ssh_ingress_cidr
+  default_vpc_id          = var.default_vpc_id
   monitoring_ingress_cidr = var.monitoring_ingress_cidr
 
   for_each         = var.apps
@@ -125,9 +125,9 @@ module "app" {
   subnet_ids      = local.app_subnets
 
   private_alb_name = lookup(lookup(lookup(module.alb, "private", null), "alb", null), "dns_name", null)
-  public_alb_name = lookup(lookup(lookup(module.alb, "public", null), "alb", null), "dns_name", null)
+  public_alb_name  = lookup(lookup(lookup(module.alb, "public", null), "alb", null), "dns_name", null)
   private_listener = lookup(lookup(lookup(module.alb, "private", null), "listener", null), "arn", null)
-  public_listener = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
+  public_listener  = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
 }
 
 
