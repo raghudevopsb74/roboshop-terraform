@@ -6,6 +6,7 @@ env                        = "dev"
 ssh_ingress_cidr           = ["172.31.85.208/32"]
 monitoring_ingress_cidr    = ["172.31.91.26/32"]
 acm_certificate_arn        = "arn:aws:acm:us-east-1:633788536644:certificate/ad9f90f9-1f68-48a2-87d4-d31c6d91a0cc"
+kms_key_id                 = "arn:aws:kms:us-east-1:633788536644:key/dce90622-5a23-4f82-a639-be841f534702"
 
 tags = {
   company_name  = "ABC Tech"
