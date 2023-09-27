@@ -32,7 +32,7 @@ vpc = {
       }
       db = {
         db1 = { cidr = "10.50.4.0/24", az = "us-east-1a" }
-        db2 = { cidr = "10.0.50.0/24", az = "us-east-1b" }
+        db2 = { cidr = "10.50.5.0/24", az = "us-east-1b" }
       }
     }
   }
