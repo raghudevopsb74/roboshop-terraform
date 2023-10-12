@@ -204,7 +204,7 @@ resource "aws_iam_role" "eks-ssm" {
       {
         "Effect": "Allow",
         "Principal": {
-          "Federated": module.eks.oidc_provider_arn
+          "Federated": "${module.eks.oidc_provider_arn}"
         },
         "Action": "sts:AssumeRoleWithWebIdentity",
         "Condition": {
