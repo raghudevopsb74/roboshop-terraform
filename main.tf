@@ -209,7 +209,7 @@ resource "aws_iam_role" "eks-ssm" {
         "Action": "sts:AssumeRoleWithWebIdentity",
         "Condition": {
           "StringEquals": {
-            module.eks.oidc_provider : "sts.amazonaws.com"
+            "${module.eks.oidc_provider}" : "sts.amazonaws.com"
           }
         }
       }
