@@ -246,12 +246,6 @@ resource "aws_iam_role" "eks-ssm" {
 
 }
 
-output "eks" {
-  value = module.eks
-}
-
-
-
 
 
 
