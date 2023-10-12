@@ -209,40 +209,40 @@ resource "aws_iam_role" "eks-ssm" {
         "Action": "sts:AssumeRoleWithWebIdentity",
         "Condition": {
           "StringEquals": {
-            "${module.eks.oidc_provider}" : "sts.amazonaws.com"
+            "${module.eks.oidc_provider}:aud" : "sts.amazonaws.com"
           }
         }
       }
     ]
   })
 
-#  inline_policy {
-#    name = "${var.env}-eks-ssm-ro"
-#
-#    policy = jsonencode({
-#      "Version" : "2012-10-17",
-#      "Statement" : [
-#        {
-#          "Sid" : "VisualEditor0",
-#          "Effect" : "Allow",
-#          "Action" : [
-#            "kms:Decrypt",
-#            "ssm:GetParameterHistory",
-#            "ssm:GetParametersByPath",
-#            "ssm:GetParameters",
-#            "ssm:GetParameter"
-#          ],
-#          "Resource" : "*"
-#        },
-#        {
-#          "Sid" : "VisualEditor1",
-#          "Effect" : "Allow",
-#          "Action" : "ssm:DescribeParameters",
-#          "Resource" : "*"
-#        }
-#      ]
-#    })
-#  }
+  inline_policy {
+    name = "${var.env}-eks-ssm-ro"
+
+    policy = jsonencode({
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Sid" : "VisualEditor0",
+          "Effect" : "Allow",
+          "Action" : [
+            "kms:Decrypt",
+            "ssm:GetParameterHistory",
+            "ssm:GetParametersByPath",
+            "ssm:GetParameters",
+            "ssm:GetParameter"
+          ],
+          "Resource" : "*"
+        },
+        {
+          "Sid" : "VisualEditor1",
+          "Effect" : "Allow",
+          "Action" : "ssm:DescribeParameters",
+          "Resource" : "*"
+        }
+      ]
+    })
+  }
 
 }
 
