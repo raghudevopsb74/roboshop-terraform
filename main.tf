@@ -196,27 +196,27 @@ resource "aws_security_group_rule" "https-to-eks" {
   cidr_blocks       = var.ssh_ingress_cidr
 }
 
-#resource "aws_iam_role" "eks-ssm" {
-#
-#
-#  assume_role_policy = jsonencode({
-#    "Version": "2012-10-17",
-#    "Statement": [
-#      {
-#        "Effect": "Allow",
-#        "Principal": {
-#          "Federated": "arn:aws:iam::633788536644:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/C48B5CC6D099AB47D4DDA6830080E406"
-#        },
-#        "Action": "sts:AssumeRoleWithWebIdentity",
-#        "Condition": {
-#          "StringEquals": {
-#            "oidc.eks.us-east-1.amazonaws.com/id/C48B5CC6D099AB47D4DDA6830080E406:aud": "sts.amazonaws.com"
-#          }
-#        }
-#      }
-#    ]
-#  })
-#}
+resource "aws_iam_role" "eks-ssm" {
+
+
+  assume_role_policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": module.eks.oidc_provider_arn
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            module.eks.oidc_provider : "sts.amazonaws.com"
+          }
+        }
+      }
+    ]
+  })
+}
 
 output "eks" {
   value = module.eks
