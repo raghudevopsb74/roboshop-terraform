@@ -197,8 +197,7 @@ resource "aws_security_group_rule" "https-to-eks" {
 }
 
 resource "aws_iam_role" "eks-ssm" {
-
-
+  name = "${var.env}-eks-ssm-ro"
   assume_role_policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [
@@ -216,6 +215,35 @@ resource "aws_iam_role" "eks-ssm" {
       }
     ]
   })
+
+  inline_policy {
+    name = "${var.env}-eks-ssm-ro"
+
+    policy = jsonencode({
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Sid" : "VisualEditor0",
+          "Effect" : "Allow",
+          "Action" : [
+            "kms:Decrypt",
+            "ssm:GetParameterHistory",
+            "ssm:GetParametersByPath",
+            "ssm:GetParameters",
+            "ssm:GetParameter"
+          ],
+          "Resource" : "*"
+        },
+        {
+          "Sid" : "VisualEditor1",
+          "Effect" : "Allow",
+          "Action" : "ssm:DescribeParameters",
+          "Resource" : "*"
+        }
+      ]
+    })
+  }
+
 }
 
 output "eks" {
