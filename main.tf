@@ -136,14 +136,14 @@ module "rabbitmq" {
 #  public_listener  = lookup(lookup(lookup(module.alb, "public", null), "listener", null), "arn", null)
 #}
 
-#resource "aws_instance" "load_runner" {
-#  ami                    = data.aws_ami.ami.id
-#  vpc_security_group_ids = ["sg-0dee954b08055e577"]
-#  instance_type          = "t3.medium"
-#  tags = {
-#    Name = "load-runner"
-#  }
-#}
+resource "aws_instance" "load_runner" {
+  ami                    = data.aws_ami.ami.id
+  vpc_security_group_ids = ["sg-0dee954b08055e577"]
+  instance_type          = "t3.medium"
+  tags = {
+    Name = "load-runner"
+  }
+}
 
 
 module "eks" {
